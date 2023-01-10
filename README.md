@@ -9,10 +9,11 @@ The objective of this PowerShell script is to convert transaction CSVs from [GEN
 
 ## Attention
 
-The transaction CSV from [GENO Broker](https://www.genobroker.de/) has some deficiencies you should know before converting and importing them into Parqet.
+The are some deficiencies you should know before importing into Parqet.
 
 * The transactions in the [GENO Broker](https://www.genobroker.de/) CSV only have dates but not time
 * The transactions in the [GENO Broker](https://www.genobroker.de/) have, in rare cases, incorrect tax values (e.g., Transfer In of non € shares after Spin-off).
+* The transactions in the [GENO Broker](https://www.genobroker.de/) can have prices of '0,0000', which is not supported by [Parqet](https://www.parqet.com/) and will be replaced by '0,0001'.
 
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
