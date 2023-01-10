@@ -36,6 +36,23 @@ Before you begin, ensure you have met the following requirements:
 
 ## Usage
 * Run 'Convert_GENO_Broker_CSVs_To_Parqet_CSVs.ps1' by right-clicking and selecting 'Run with Powershell'
+* Select CSV files you downloaded from [GENO Broker](https://www.genobroker.de/).
+* The scripts creates for every transaction a seperate CSV file in the format required by [Parqet](https://www.parqet.com/) to be found in the same folder as the initial CSVs.
+
+## Example
+
+The 'example' folder includes a [GENO Broker](https://www.genobroker.de/) file with 3 transaction that is converted and split into 3 files for import into [Parqet](https://www.parqet.com/).
+
+### Example Input
+- [./example/example_Depotumsaetze_1234567890_10.01.2023.csv](./example/example_Depotumsaetze_1234567890_10.01.2023.csv)
+
+### Example Output
+- [./example/example_2022-12-13_Buy_766403_VOLKSWAGENAGVZOON_1.csv](./example/example_2022-12-13_Buy_766403_VOLKSWAGENAGVZOON_1.csv)
+- [./example/example_2022-12-19_Sell_766403_VOLKSWAGENAGVZOON_2.csv](./example/example_2022-12-19_Sell_766403_VOLKSWAGENAGVZOON_2.csv)
+- [./example/example_2023-01-09_Dividend_766403_VOLKSWAGENAGVZOON_3.csv](./example/example_2023-01-09_Dividend_766403_VOLKSWAGENAGVZOON_3.csv)
+
+### Example Transactions
+![Example Transactions](./example/example_parqet_screenshot.png)
 
 ## Contributing
 To contribute, follow these steps:
