@@ -63,7 +63,7 @@ $CSVfiles | Foreach-Object {
   $CSVContent = $FileContent | select-string -pattern @('^[^;\n]*((;[^;\n]*){10,}$)') -encoding ASCII
   $CSVRecords = ConvertFrom-CSV $CSVContent -Delimiter ';'
 
-  $New = $CSVRecords | Select-Object `
+  $Parqet = $CSVRecords | Select-Object `
   @{N = 'broker'; E = { 'GENO Broker GmbH' } }, `
   @{N = 'currency'; E = { $_.Währung } }, `
   @{N = 'date'; E = { ([Datetime]::ParseExact($_.Datum, 'dd.MM.yyyy', $null)).tostring(“yyyy-MM-dd”) } }, `
@@ -74,21 +74,18 @@ $CSVfiles | Foreach-Object {
   @{N = 'tax'; E = { $_.Steuern } }, `
   @{N = 'type'; E = { $_.Geschäftsart -replace ('^Kauf$', 'Buy') -replace ('^Verkauf$', 'Sell') -replace ('^Einlieferung$', 'TransferIn') -replace ('^Auslieferung$', 'TransferOut') -replace ('^Dividende$', 'Dividend') } }, `
   @{N = 'wkn'; E = { $_.WKN } }, `
-  @{N = 'description'; E = { $_.Wertpapierbezeichnung } }
-
-  $counter = 0
+  @{N = 'description'; E = { $_.Wertpapierbezeichnung } },
+  @{N = 'order'; E = { $_.'Auftragsnr.' } }
 
   $Path = $(Split-Path -Path $_)
 
-  $New | Sort-Object -Property date  | Foreach-Object {
+  $Counter = 0
 
-    $FileContentname = "$Path\$($_.date)_$($_.type)_$($_.wkn)_$(($_.description) -Replace('[^A-Za-z]',''))_$((++$counter)).csv"
+  $Parqet | Foreach-Object {
 
-    $_ | Export-Csv -Path $FileContentname -Delimiter ";" -NoTypeInformation
+    $Filename = "$Path\$($_.date)_$($_.type)_$($_.wkn)_$(($_.description) -Replace('[^A-Za-z]',''))_$($_.order -replace ('-',$_.type))_$((++$counter)).csv"
+    $_ | Export-Csv -Path $Filename -Delimiter ";" -NoTypeInformation
 
   }
 
 }
-
-
-
